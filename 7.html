@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Демонстрация горизонтальной линии</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            width: 500px;
+            border: 1px solid #999;
+            padding: 20px;
+            text-align: center;
+        }
+        #control-panel {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        #left-panel, #right-panel {
+            border: 1px solid #999;
+            padding: 10px;
+            width: 220px;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h2>Настройка горизонтальной линии</h2>
+    <p>Измените параметры и нажмите "Применить".</p>
+    <div>
+        <hr id="line" style="height: 5px; width: 300px; background-color: teal; border: none;">
+    </div>
+
+    <div id="control-panel">
+        <div id="left-panel">
+            <label>Выравнивание</label><br>
+            <label><input type="radio" name="align" value="left"> Слева</label><br>
+            <label><input type="radio" name="align" value="center" checked> По центру</label><br>
+            <label><input type="radio" name="align" value="right"> Справа</label><br>
+            <label>Толщина линии:</label>
+            <input type="number" id="size-input" value="5"><br>
+            <label>Длина линии:</label>
+            <input type="number" id="width-input" value="300">
+        </div>
+        <div id="right-panel">
+            <label>Цвет линии:</label>
+            <select id="color">
+                <option value="teal" selected>teal</option>
+                <option value="green">green</option>
+                <option value="blue">blue</option>
+                <option value="red">red</option>
+                <option value="purple">purple</option>
+                <option value="orange">orange</option>
+                <option value="black">black</option>
+            </select>
+        </div>
+    </div>
+    <button type="button" id="apply-btn">Применить</button>
+    <button type="button" id="reset-btn">Сбросить</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const line = document.getElementById('line');
+        const alignRadios = document.querySelectorAll('input[name="align"]');
+        const sizeInput = document.getElementById('size-input');
+        const widthInput = document.getElementById('width-input');
+        const colorSelect = document.getElementById('color');
+        const applyBtn = document.getElementById('apply-btn');
+        const resetBtn = document.getElementById('reset-btn');
+
+        function applySettings() {
+            let align = 'center';
+            alignRadios.forEach(radio => { if (radio.checked) align = radio.value; });
+            line.style.marginLeft = '';
+            line.style.marginRight = '';
+            line.style.display = 'block';
+            if (align === 'left') {
+                line.style.marginLeft = '0';
+                line.style.marginRight = 'auto';
+            } else if (align === 'center') {
+                line.style.marginLeft = 'auto';
+                line.style.marginRight = 'auto';
+            } else if (align === 'right') {
+                line.style.marginLeft = 'auto';
+                line.style.marginRight = '0';
+            }
+
+            line.style.height = Math.max(1, parseInt(sizeInput.value) || 5) + 'px';
+            line.style.width = Math.max(1, parseInt(widthInput.value) || 300) + 'px';
+            line.style.backgroundColor = colorSelect.value;
+        }
+
+        applyBtn.addEventListener('click', applySettings);
+
+        resetBtn.addEventListener('click', function() {
+            alignRadios.forEach(radio => radio.checked = radio.value === 'center');
+            sizeInput.value = 5;
+            widthInput.value = 300;
+            colorSelect.value = 'teal';
+            applySettings();
+        });
+
+        applySettings();
+    });
+</script>
+</

@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Скрыть текст</title>
+    <title>Скрыть кнопку</title>
 </head>
 <body>
 
-<div id="text">Hello, World!!!</div>
-<button id="hideButton">Скрыть текст</button>
+<button id="hideButton">Скрыть</button>
 
 <script>
     const button = document.getElementById('hideButton');
-    const textDiv = document.getElementById('text');
 
     button.addEventListener('click', () => {
-        textDiv.style.display = 'none';
+        button.style.display = 'none';
     });
 </script>
 
